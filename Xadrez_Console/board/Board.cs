@@ -1,17 +1,21 @@
-﻿
-namespace tabuleiro
+﻿namespace board
 {
-    class Tabuleiro
+    class Board
     {
-        public int Linhas { get; set; }
-        public int Colunas { get; set; }
-        private Peca[,] Pecas;
+        public int Lines { get; set; }
+        public int Colums { get; set; }
+        private Piece[,] Pieces;
 
-        public Tabuleiro(int linhas, int colunas)
+        public Board(int lines, int colums)
         {
-            this.Linhas = linhas;
-            this.Colunas = colunas;
-            Pecas = new Peca[linhas, colunas];
+            this.Lines = lines;
+            this.Colums = colums;
+            Pieces = new Piece[lines, colums];
+        }
+
+        public Piece piece(int line, int colum)
+        {
+            return Pieces[line, colum];
         }
     }
 }

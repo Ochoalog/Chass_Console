@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace tabuleiro
+namespace board
 {
-    enum Cor
+    enum Color
     {
-        Branca,
-        Preta,
-        Amarela,
-        Azul,
-        Vermelha,
-        Verde,
-        Laranja
+        White,
+        Black,
+        Yellow,
+        Blue,
+        Red,
+        Green,
+        Orange
     }
 }

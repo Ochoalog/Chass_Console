@@ -1,18 +1,18 @@
-﻿namespace tabuleiro
+﻿namespace board
 {
-    class Peca 
+    class Piece
     {
-        public Posicao posicao { get; set; }
-        public Cor cor { get; protected set; }
-        public int qteMovimentos { get; protected set; }
-        public Tabuleiro tab { get; protected set; }
+        public Position position { get; set; }
+        public Color color { get; protected set; }
+        public int qtyMoviments { get; protected set; }
+        public Board board { get; protected set; }
 
-        public Peca(Posicao posicao, Cor cor, Tabuleiro tab)  
+        public Piece(Position position, Color color, Board board)  
         {
-            this.posicao = posicao;
-            this.cor = cor;
-            this.tab = tab;
-            this.qteMovimentos = 0;
+            this.position = position;
+            this.color = color;
+            this.board = board;
+            this.qtyMoviments = 0;
         }
     }
 }
