@@ -11,10 +11,12 @@ namespace Chass_Console
             try
             {
                 Board board = new Board(8, 8);
-                board.putPiece(new Tower(board, Color.White), new Position(0, 0));
+                board.putPiece(new Tower(board, Color.Black), new Position(0, 0));
                 board.putPiece(new Tower(board, Color.Black), new Position(1, 3));
-                board.putPiece(new King(board, Color.Black), new Position(2, 4));
+                board.putPiece(new King(board, Color.White), new Position(2, 4));
                 board.putPiece(new Tower(board, Color.White), new Position(0, 2));
+                board.putPiece(new King(board, Color.Black), new Position(5, 6));
+
 
                 Screen.printBoard(board);
             }
