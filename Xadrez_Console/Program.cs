@@ -17,8 +17,16 @@ namespace Chass_Console
                     Console.Clear();
                     Screen.printBoard(match.board);
 
+                    Console.WriteLine("+=+=+=+=+=+=+=+=+");
                     Console.Write("Origem: ");
                     Position origin = Screen.readPositionChass().toPosition();
+
+                    bool[,] possiblesPositions = match.board.piece(origin).possiblesMoviments();
+
+                    Console.Clear();
+                    Screen.printBoard(match.board, possiblesPositions);
+
+                    Console.WriteLine("+=+=+=+=+=+=+");
                     Console.Write("Destino: ");
                     Position arrived = Screen.readPositionChass().toPosition();
 

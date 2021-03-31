@@ -11,6 +11,12 @@
             this.colum = colum;
         }
 
+        public void defineValues(int line, int colum)
+        {
+            this.line = line;
+            this.colum = colum;
+        }
+
         public override string ToString()
         {
             return line +
