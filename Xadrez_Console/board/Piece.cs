@@ -20,6 +20,23 @@
             qtyMoviments ++;
         }
 
+        public bool existpossiblesMoviments()
+        {
+            bool[,] mat = possiblesMoviments();
+            for (int i = 0; i < board.Lines; i++)
+            {
+                for (int j = 0; j < board.Colums; j++)
+                {
+                    if(mat[i, j])
+                    {
+                        return true;
+                    }
+                    
+                }
+            }
+            return false;
+        }
+
         public abstract bool[,] possiblesMoviments(); 
     }
 }

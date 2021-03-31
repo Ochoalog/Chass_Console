@@ -5,8 +5,8 @@ namespace chass
     class ChassMatch
     {
         public Board board { get; private set; }
-        private int Shifit;
-        private Color CurrentPlayer;
+        public int Shifit { get; private set; }
+        public Color CurrentPlayer { get; private set; }
         public bool Finish { get; private set; }
         public ChassMatch()
         {
@@ -26,21 +26,51 @@ namespace chass
             board.putPiece(p, arrived);
         }
 
+        public void Move(Position origin, Position arrived)
+        {
+            executeMoviment(origin, arrived);
+            Shifit++;
+            changePlayer();
+        }
+
+        public void validPositionOrigin(Position pos)
+        {
+            if(board.piece(pos) == null)
+            {
+                throw new BoardException("Não existe peça na posição de origem escolhida.");
+            }
+            if(CurrentPlayer != board.piece(pos).color)
+            {
+                throw new BoardException("A peça de origem escolhida não é sua!");
+            }
+            if (!board.piece(pos).existpossiblesMoviments())
+            {
+                throw new BoardException("Não há movimentos possíveis para a peça de origem escolhida!");
+            }
+        }
+
+        private void changePlayer()
+        {
+            if(CurrentPlayer == Color.White)
+            {
+                CurrentPlayer = Color.Black;
+            }
+            else
+            {
+                CurrentPlayer = Color.White;
+            }
+        }
+
         private void putPieces()
         {
-            board.putPiece(new Tower(board, Color.White), new PositionChass('c', 1).toPosition());
-            board.putPiece(new Tower(board, Color.White), new PositionChass('c', 2).toPosition());
-            board.putPiece(new Tower(board, Color.White), new PositionChass('d', 2).toPosition());
-            board.putPiece(new Tower(board, Color.White), new PositionChass('e', 2).toPosition());
-            board.putPiece(new Tower(board, Color.White), new PositionChass('e', 1).toPosition());
-            board.putPiece(new King(board, Color.White), new PositionChass('d', 1).toPosition());
+            board.putPiece(new Tower(board, Color.White), new PositionChass('a', 1).toPosition());
+            board.putPiece(new Tower(board, Color.White), new PositionChass('h', 1).toPosition());
+            board.putPiece(new King(board, Color.White), new PositionChass('e', 1).toPosition());
 
-            board.putPiece(new Tower(board, Color.Black), new PositionChass('c', 7).toPosition());
-            board.putPiece(new Tower(board, Color.Black), new PositionChass('c', 8).toPosition());
-            board.putPiece(new Tower(board, Color.Black), new PositionChass('d', 7).toPosition());
-            board.putPiece(new Tower(board, Color.Black), new PositionChass('e', 7).toPosition());
-            board.putPiece(new Tower(board, Color.Black), new PositionChass('e', 8).toPosition());
-            board.putPiece(new King(board, Color.Black), new PositionChass('d', 8).toPosition());
+
+            board.putPiece(new Tower(board, Color.Black), new PositionChass('a', 8).toPosition());
+            board.putPiece(new Tower(board, Color.Black), new PositionChass('h', 8).toPosition());
+            board.putPiece(new King(board, Color.Black), new PositionChass('e', 8).toPosition());
         }
     }
 }

@@ -14,23 +14,34 @@ namespace Chass_Console
 
                 while(!match.Finish)
                 {
-                    Console.Clear();
-                    Screen.printBoard(match.board);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.printBoard(match.board);
+                        Console.WriteLine("+=+=+=+=+=+=+=+=+");
+                        Console.WriteLine("Turno: " + match.Shifit);
+                        Console.WriteLine("Aguardando jogada: " + match.CurrentPlayer);
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Position origin = Screen.readPositionChass().toPosition();
+                        match.validPositionOrigin(origin);
 
-                    Console.WriteLine("+=+=+=+=+=+=+=+=+");
-                    Console.Write("Origem: ");
-                    Position origin = Screen.readPositionChass().toPosition();
+                        bool[,] possiblesPositions = match.board.piece(origin).possiblesMoviments();
 
-                    bool[,] possiblesPositions = match.board.piece(origin).possiblesMoviments();
+                        Console.Clear();
+                        Screen.printBoard(match.board, possiblesPositions);
 
-                    Console.Clear();
-                    Screen.printBoard(match.board, possiblesPositions);
+                        Console.WriteLine("+=+=+=+=+=+=+");
+                        Console.Write("Destino: ");
+                        Position arrived = Screen.readPositionChass().toPosition();
 
-                    Console.WriteLine("+=+=+=+=+=+=+");
-                    Console.Write("Destino: ");
-                    Position arrived = Screen.readPositionChass().toPosition();
-
-                    match.executeMoviment(origin, arrived);
+                        match.Move(origin, arrived);
+                    }
+                    catch(BoardException e)
+                    {
+                        Console.WriteLine(e.Message + " Enter para repetir a jogada.");
+                        Console.ReadLine();
+                    }
                 }
 
                 
