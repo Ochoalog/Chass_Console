@@ -41,7 +41,9 @@ namespace Chass_Console
                         Console.WriteLine(e.Message + " Enter para repetir a jogada.");
                         Console.ReadLine();
                     }
-                }                
+                }
+                Console.Clear();
+                Screen.printMatch(match);
             }
             catch (BoardException e)
             {

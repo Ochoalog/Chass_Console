@@ -69,9 +69,16 @@ namespace chass
             {
                 xeque = false;
             }
-
-            Shifit++;
-            changePlayer();
+            if (testXequeMate(adversary(CurrentPlayer)))
+            {
+                Finish = true;
+            }
+            else
+            {
+                Shifit++;
+                changePlayer();
+            }
+            
         }
 
         public void validPositionOrigin(Position pos)
@@ -178,6 +185,37 @@ namespace chass
             return false;
         }
 
+        public bool testXequeMate(Color color)
+        {
+            if (!isXeque(color))
+            {
+                return false;
+            }
+            foreach (Piece x in piecesInGame(color))
+            {
+                bool[,] mat = x.possiblesMoviments();
+                for (int i = 0; i < board.Lines; i++)
+                {
+                    for (int j = 0; j < board.Colums; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = x.position;
+                            Position arrived = new Position(i, j);
+                            Piece pieceCaptured = executeMoviment(origin, arrived);
+                            bool testXeque = isXeque(color);
+                            unmakeMoviment(origin, arrived, pieceCaptured);
+                            if (!testXeque)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void putNewPiece(char colum, int line, Piece piece)
         {
             board.putPiece(piece, new PositionChass(colum, line).toPosition());
@@ -186,23 +224,12 @@ namespace chass
         
         private void putPieces()
         {
-            putNewPiece('a', 1, new Tower(board, Color.White));
-            putNewPiece('h', 1, new Tower(board, Color.White));
             putNewPiece('c', 1, new Tower(board, Color.White));
-            putNewPiece('c', 2, new Tower(board, Color.White));
-            putNewPiece('d', 2, new Tower(board, Color.White));
-            putNewPiece('e', 2, new Tower(board, Color.White));
-            putNewPiece('e', 1, new Tower(board, Color.White));
             putNewPiece('d', 1, new King(board, Color.White));
+            putNewPiece('h', 7, new Tower(board, Color.White));
 
-            putNewPiece('a', 8, new Tower(board, Color.Black));
-            putNewPiece('h', 8, new Tower(board, Color.Black));
-            putNewPiece('c', 8, new Tower(board, Color.Black));
-            putNewPiece('c', 7, new Tower(board, Color.Black));
-            putNewPiece('d', 7, new Tower(board, Color.Black));
-            putNewPiece('e', 7, new Tower(board, Color.Black));
-            putNewPiece('e', 8, new Tower(board, Color.Black));
-            putNewPiece('d', 8, new King(board, Color.Black));
+            putNewPiece('a', 8, new King(board, Color.Black));
+            putNewPiece('b', 8, new Tower(board, Color.Black));
         }
     }
 }
