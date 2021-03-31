@@ -44,9 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="board\BoardException.cs" />
+    <Compile Include="chass\Bishop.cs" />
     <Compile Include="chass\ChassMatch.cs" />
+    <Compile Include="chass\Horse.cs" />
     <Compile Include="chass\King.cs" />
+    <Compile Include="chass\Pawn.cs" />
     <Compile Include="chass\PositionChass.cs" />
+    <Compile Include="chass\Queen.cs" />
     <Compile Include="chass\Tower.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

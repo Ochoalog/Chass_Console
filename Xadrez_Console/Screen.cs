@@ -10,8 +10,10 @@ namespace Chass_Console
         
         public static void printMatch(ChassMatch match)
         {
+            Console.WriteLine("PARTIDA DE XADREZ!");
+            Console.WriteLine("+=+=+=+=+=+=+=+=+");
             printBoard(match.board);
-            Console.WriteLine();
+            Console.WriteLine("+=+=+=+=+=+=+=+=+");
             printPiecesCaptureds(match);
             Console.WriteLine("+=+=+=+=+=+=+=+=+");
             Console.WriteLine("Turno: " + match.Shifit);

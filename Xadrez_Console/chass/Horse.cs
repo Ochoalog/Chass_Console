@@ -2,16 +2,15 @@
 
 namespace chass
 {
-    class King : Piece
+    class Horse : Piece
     {
-        public King(Board board, Color color) : base(board, color)
+        public Horse(Board board, Color color) : base(board, color)
         {
-
         }
 
         public override string ToString()
         {
-            return "R";
+            return "C";
         }
 
         private bool canMove(Position pos)
@@ -26,58 +25,49 @@ namespace chass
 
             Position pos = new Position(0, 0);
 
-            //acima
-            pos.defineValues(position.line - 1, position.colum);
+            pos.defineValues(position.line - 1, position.colum - 2);
             if(board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.colum] = true;
             }
 
-            
-            //nordeste
-            pos.defineValues(position.line - 1, position.colum + 1);
+            pos.defineValues(position.line - 2, position.colum - 1);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.colum] = true;
             }
 
-            //direita
-            pos.defineValues(position.line, position.colum + 1);
+            pos.defineValues(position.line - 2, position.colum + 1);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.colum] = true;
             }
 
-            //sudeste
-            pos.defineValues(position.line + 1, position.colum + 1);
+            pos.defineValues(position.line - 1, position.colum + 2);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.colum] = true;
             }
 
-            //abaixo
-            pos.defineValues(position.line + 1, position.colum);
+            pos.defineValues(position.line + 1, position.colum + 2);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.colum] = true;
             }
 
-            //sudoeste
-            pos.defineValues(position.line + 1, position.colum - 1);
+            pos.defineValues(position.line +2, position.colum + 1);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.colum] = true;
             }
 
-            //esquerda
-            pos.defineValues(position.line, position.colum - 1);
+            pos.defineValues(position.line + 2, position.colum - 1);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.colum] = true;
             }
 
-            //noroeste
-            pos.defineValues(position.line - 1, position.colum - 1);
+            pos.defineValues(position.line + 1, position.colum - 2);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.colum] = true;
