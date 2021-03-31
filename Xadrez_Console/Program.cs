@@ -10,23 +10,12 @@ namespace Chass_Console
         {
             try
             {
-                ChassMatch match = new ChassMatch();
-                
-                while (!match.Finish)
-                {
-                    Console.Clear();
-                    Screen.printBoard(match.Board);
 
-                    Console.WriteLine("==========================================");
-                    Console.Write("Origem: ");
-                    Position origin = Screen.readPositionChass().toPosition();
-                    Console.Write("Destino: ");
-                    Position arrived = Screen.readPositionChass().toPosition();
+                PositionChass pos = new PositionChass('c', 7);
 
+                Console.WriteLine(pos);
 
-                    match.executeMoviment(origin, arrived);
-                }
-
+                Console.WriteLine(pos.toPosition());
             }
             catch (BoardException e)
             {

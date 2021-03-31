@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="board\BoardException.cs" />
-    <Compile Include="chass\ChassMatch.cs" />
     <Compile Include="chass\King.cs" />
     <Compile Include="chass\PositionChass.cs" />
     <Compile Include="chass\Tower.cs" />
