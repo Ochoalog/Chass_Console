@@ -17,10 +17,8 @@ namespace Chass_Console
                     try
                     {
                         Console.Clear();
-                        Screen.printBoard(match.board);
-                        Console.WriteLine("+=+=+=+=+=+=+=+=+");
-                        Console.WriteLine("Turno: " + match.Shifit);
-                        Console.WriteLine("Aguardando jogada: " + match.CurrentPlayer);
+                        Screen.printMatch(match);
+                        
                         Console.WriteLine();
                         Console.Write("Origem: ");
                         Position origin = Screen.readPositionChass().toPosition();
@@ -34,6 +32,7 @@ namespace Chass_Console
                         Console.WriteLine("+=+=+=+=+=+=+");
                         Console.Write("Destino: ");
                         Position arrived = Screen.readPositionChass().toPosition();
+                        match.validPositionArrived(origin, arrived);
 
                         match.Move(origin, arrived);
                     }
@@ -42,9 +41,7 @@ namespace Chass_Console
                         Console.WriteLine(e.Message + " Enter para repetir a jogada.");
                         Console.ReadLine();
                     }
-                }
-
-                
+                }                
             }
             catch (BoardException e)
             {

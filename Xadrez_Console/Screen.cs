@@ -1,11 +1,46 @@
 ﻿using System;
 using board;
 using chass;
+using System.Collections.Generic;
 
 namespace Chass_Console
 {
     class Screen
     {
+        
+        public static void printMatch(ChassMatch match)
+        {
+            printBoard(match.board);
+            Console.WriteLine();
+            printPiecesCaptureds(match);
+            Console.WriteLine("+=+=+=+=+=+=+=+=+");
+            Console.WriteLine("Turno: " + match.Shifit);
+            Console.WriteLine("Aguardando jogada: " + match.CurrentPlayer);
+        }
+
+        public static void printPiecesCaptureds(ChassMatch match)
+        {
+            Console.WriteLine("Peças capturadas:");
+            Console.Write("Brancas: ");
+            printCollection(match.piecesCaptured(Color.White));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            printCollection(match.piecesCaptured(Color.Black));
+            Console.ForegroundColor = aux;
+        }
+
+        public static void printCollection(HashSet<Piece> collection)
+        {
+            Console.Write("[");
+            foreach (Piece x in collection)
+            {
+                Console.Write(x + " ");
+            }
+            Console.WriteLine("]");
+        }
+        
         public static void printBoard(Board board)
         {
             for (int i = 0; i < board.Lines; i++)
