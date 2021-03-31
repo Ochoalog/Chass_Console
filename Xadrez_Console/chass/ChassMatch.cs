@@ -10,18 +10,21 @@ namespace chass
         public bool Finish { get; private set; }
         private HashSet<Piece> pieces;
         private HashSet<Piece> captureds;
+        public bool xeque { get; private set; }
+
         public ChassMatch()
         {
             board = new Board(8, 8);
             Shifit = 1;
             CurrentPlayer = Color.White;
             Finish = false;
+            xeque = false;
             pieces = new HashSet<Piece>();
             captureds = new HashSet<Piece>();
             putPieces();
         }
 
-        public void executeMoviment(Position origin, Position arrived)
+        public Piece executeMoviment(Position origin, Position arrived)
         {
             
             Piece p = board.removePiece(origin);
@@ -32,11 +35,41 @@ namespace chass
             {
                 captureds.Add(pieceCaptured);
             }
+            return pieceCaptured;
         }
 
+        public void unmakeMoviment(Position origin, Position arrived, Piece pieceCaptured)
+        {
+            Piece p = board.removePiece(arrived);
+            p.decrementQtyMoviment();
+            if(pieceCaptured != null)
+            {
+                board.putPiece(pieceCaptured, arrived);
+                captureds.Remove(pieceCaptured);
+            }
+            board.putPiece(p, origin);
+        }
+        
+        
         public void Move(Position origin, Position arrived)
         {
-            executeMoviment(origin, arrived);
+            Piece pieceCaptured = executeMoviment(origin, arrived);
+
+            if (isXeque(CurrentPlayer))
+            {
+                unmakeMoviment(origin, arrived, pieceCaptured);
+                throw new BoardException("Você não pode se colocar em xeque!");
+            }
+
+            if (isXeque(adversary(CurrentPlayer)))
+            {
+                xeque = true;
+            }
+            else
+            {
+                xeque = false;
+            }
+
             Shifit++;
             changePlayer();
         }
@@ -102,6 +135,47 @@ namespace chass
             }
             aux.ExceptWith(piecesCaptured(color));
             return aux;
+        }
+
+        private Color adversary(Color color)
+        {
+            if(color == Color.White)
+            {
+                return Color.Black;
+            } else
+            {
+                return Color.White;
+            }
+        }
+
+        private Piece king(Color color)
+        {
+            foreach (Piece x in piecesInGame(color))
+            {
+                if (x is King)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
+
+        public bool isXeque(Color color)
+        {
+            Piece K = king(color);
+            if(K == null)
+            {
+                throw new BoardException("Não tem rei da cor" + color + " no tabuleiro!");
+            }
+            foreach(Piece x in piecesInGame(adversary(color)))
+            {
+                bool[,] mat = x.possiblesMoviments();
+                if(mat[K.position.line, K.position.colum])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void putNewPiece(char colum, int line, Piece piece)

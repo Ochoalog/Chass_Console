@@ -16,6 +16,10 @@ namespace Chass_Console
             Console.WriteLine("+=+=+=+=+=+=+=+=+");
             Console.WriteLine("Turno: " + match.Shifit);
             Console.WriteLine("Aguardando jogada: " + match.CurrentPlayer);
+            if (match.xeque)
+            {
+                Console.WriteLine("XEQUE!");
+            }
         }
 
         public static void printPiecesCaptureds(ChassMatch match)
