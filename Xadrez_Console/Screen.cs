@@ -36,7 +36,11 @@ namespace Chass_Console
         {
             Console.WriteLine("Peças capturadas:");
             Console.Write("Brancas: ");
+            ConsoleColor aux1 = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Blue;
             printCollection(match.piecesCaptured(Color.White));
+            Console.ForegroundColor = aux1;
+            
             Console.WriteLine();
             Console.Write("Pretas: ");
             ConsoleColor aux = Console.ForegroundColor;
@@ -112,7 +116,10 @@ namespace Chass_Console
             { 
                 if (piece.color == Color.White)
                 {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Write(piece);
+                    Console.ForegroundColor = aux;
                 }
                 else
                 {

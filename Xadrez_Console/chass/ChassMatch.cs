@@ -35,6 +35,27 @@ namespace chass
             {
                 captureds.Add(pieceCaptured);
             }
+
+            //#jogadaespecial roque pequeno
+            if(p is King && arrived.colum == origin.colum + 2)
+            {
+                Position originT = new Position(origin.line, origin.colum + 3);
+                Position arrivedT = new Position(origin.line, origin.colum + 1);
+                Piece T = board.removePiece(originT);
+                T.incrementQtyMoviments();
+                board.putPiece(T, arrivedT);
+            }
+
+            //#jogadaespecial roque grande
+            if (p is King && arrived.colum == origin.colum - 2)
+            {
+                Position originT = new Position(origin.line, origin.colum - 4);
+                Position arrivedT = new Position(origin.line, origin.colum - 1);
+                Piece T = board.removePiece(originT);
+                T.incrementQtyMoviments();
+                board.putPiece(T, arrivedT);
+            }
+
             return pieceCaptured;
         }
 
@@ -48,6 +69,26 @@ namespace chass
                 captureds.Remove(pieceCaptured);
             }
             board.putPiece(p, origin);
+
+            //#jogadaespecial roque pequeno
+            if (p is King && arrived.colum == origin.colum + 2)
+            {
+                Position originT = new Position(origin.line, origin.colum + 3);
+                Position arrivedT = new Position(origin.line, origin.colum + 1);
+                Piece T = board.removePiece(arrivedT);
+                T.decrementQtyMoviment();
+                board.putPiece(T, originT);
+            }
+
+            //#jogadaespecial roque grande
+            if (p is King && arrived.colum == origin.colum - 2)
+            {
+                Position originT = new Position(origin.line, origin.colum - 4);
+                Position arrivedT = new Position(origin.line, origin.colum - 1);
+                Piece T = board.removePiece(arrivedT);
+                T.decrementQtyMoviment();
+                board.putPiece(T, originT);
+            }
         }
         
         
@@ -228,7 +269,7 @@ namespace chass
             putNewPiece('b', 1, new Horse(board, Color.White));
             putNewPiece('c', 1, new Bishop(board, Color.White));
             putNewPiece('d', 1, new Queen(board, Color.White));
-            putNewPiece('e', 1, new King(board, Color.White));
+            putNewPiece('e', 1, new King(board, Color.White, this));
             putNewPiece('f', 1, new Bishop(board, Color.White));
             putNewPiece('g', 1, new Horse(board, Color.White));
             putNewPiece('h', 1, new Tower(board, Color.White));
@@ -245,7 +286,7 @@ namespace chass
             putNewPiece('b', 8, new Horse(board, Color.Black));
             putNewPiece('c', 8, new Bishop(board, Color.Black));
             putNewPiece('d', 8, new Queen(board, Color.Black));
-            putNewPiece('e', 8, new King(board, Color.Black));
+            putNewPiece('e', 8, new King(board, Color.Black, this));
             putNewPiece('f', 8, new Bishop(board, Color.Black));
             putNewPiece('g', 8, new Horse(board, Color.Black));
             putNewPiece('h', 8, new Tower(board, Color.Black));
