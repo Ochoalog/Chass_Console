@@ -1,5 +1,6 @@
 ﻿using System;
 using board;
+using chass;
 
 namespace Chass_Console
 {
@@ -24,6 +25,14 @@ namespace Chass_Console
                 Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static PositionChass readPositionChass()
+        {
+            String s = Console.ReadLine();
+            char colum = s[0];
+            int line = int.Parse(s[1] + "");
+            return new PositionChass(colum, line);
         }
 
         public static void printPiece(Piece piece)

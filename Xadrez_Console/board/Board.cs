@@ -34,10 +34,22 @@
         {
             if (existPiece(pos))
             {
-                throw new BoardException("Já existe uma Peça nessa posição!");
+                throw new BoardException("Já existe uma peça nessa posição!");
             }           
             Pieces[pos.line, pos.colum] = p;
             p.position = pos;
+        }
+
+        public Piece removePiece(Position pos)
+        {
+            if(piece(pos) == null)
+            {
+                return null;
+            }
+            Piece aux = piece(pos);
+            aux.position = null;
+            Pieces[pos.line, pos.colum] = null;
+            return aux;
         }
 
         public bool positionValid(Position pos)
