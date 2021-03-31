@@ -20,7 +20,7 @@
 
         public Piece piece(Position pos)
         {
-            return Pieces[pos.colum, pos.line];
+            return Pieces[pos.line, pos.colum];
         }
 
         public bool existPiece(Position pos)
