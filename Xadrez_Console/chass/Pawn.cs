@@ -4,9 +4,11 @@ namespace chass
 {
     class Pawn : Piece
     {
-        public Pawn(Board board, Color color) : base(board, color)
-        {
+        private ChassMatch match;
 
+        public Pawn(Board board, Color color, ChassMatch match) : base(board, color)
+        {
+            this.match = match;
         }        
         public override string ToString()
         {
@@ -16,7 +18,7 @@ namespace chass
         private bool existEnemy(Position pos)
         {
             Piece p = board.piece(pos);
-            return p != null && p.color != color;
+            return p != null && p.color == Color.Black;
         }
 
         private bool free(Position pos)
@@ -55,6 +57,22 @@ namespace chass
                 {
                     mat[pos.line, pos.colum] = true;
                 }
+
+                //#jogadaespecial en passant
+                if(position.line == 3)
+                {
+                    Position left = new Position(position.line, position.colum - 1);
+                    if (board.positionValid(left) && existEnemy(left) && board.piece(left) == match.vulnerableEnPassant)
+                    {
+                        mat[left.line - 1, left.colum] = true;
+                    }
+
+                    Position right = new Position(position.line, position.colum + 1);
+                    if (board.positionValid(right) && existEnemy(right) && board.piece(right) == match.vulnerableEnPassant)
+                    {
+                        mat[right.line - 1, right.colum] = true;
+                    }
+                }
             }
 
             else
@@ -81,6 +99,21 @@ namespace chass
                 if (board.positionValid(pos) && existEnemy(pos))
                 {
                     mat[pos.line, pos.colum] = true;
+                }
+
+                if (position.line == 4)
+                {
+                    Position left = new Position(position.line, position.colum - 1);
+                    if (board.positionValid(left) && existEnemy(left) && board.piece(left) == match.vulnerableEnPassant)
+                    {
+                        mat[left.line + 1, left.colum] = true;
+                    }
+
+                    Position right = new Position(position.line, position.colum + 1);
+                    if (board.positionValid(right) && existEnemy(right) && board.piece(right) == match.vulnerableEnPassant)
+                    {
+                        mat[right.line + 1, right.colum] = true;
+                    }
                 }
             }
 
