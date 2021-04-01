@@ -141,6 +141,21 @@ namespace chass
                 throw new BoardException("Você não pode se colocar em xeque!");
             }
 
+            Piece p = board.piece(arrived);
+
+            //jogadaespecial promocao
+            if(p is Pawn)
+            {
+                if((p.color == Color.White && arrived.line == 0) || (p.color == Color.Black && arrived.line == 7))
+                {
+                    p.board.removePiece(arrived);
+                    pieces.Remove(p);
+                    Piece queen = new Queen(board, p.color);
+                    board.putPiece(queen, arrived);
+                    pieces.Add(queen);
+                }
+            }
+
             if (isXeque(adversary(CurrentPlayer)))
             {
                 xeque = true;
@@ -158,9 +173,7 @@ namespace chass
                 Shifit++;
                 changePlayer();
             }
-
-            Piece p = board.piece(arrived);
-
+           
             //#jogadaespecial en passant
             if (p is Pawn && (arrived.line == origin.line - 2 || arrived.line == origin.line + 2))
             {

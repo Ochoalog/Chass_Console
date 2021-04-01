@@ -63,7 +63,7 @@
 
         public void validatePosition(Position pos)
         {
-            if (!positionValid(pos))
+            if (positionValid(pos))
             {
                 throw new BoardException("Posição Inválida!");
             }
